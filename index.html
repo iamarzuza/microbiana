@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microbioma Intestinal</title>
+  
+  <!-- PWA Essentials -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="./icone.png">
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background: linear-gradient(135deg, #1e1e1e 0%, #2d1b4e 100%);
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 40px rgba(187, 134, 252, 0.2);
+}
+
+h1 {
+    font-size: 2.8em;
+    color: #bb86fc;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+    font-size: 1.3em;
+    color: #03dac6;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.tags {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background-color: rgba(187, 134, 252, 0.2);
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.9em;
+    border: 1px solid #bb86fc;
+    color: #bb86fc;
+}
+
+.intro {
+    background-color: #1e1e1e;
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    border-left: 5px solid #03dac6;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.intro p {
+    font-size: 1.15em;
+    margin-bottom: 15px;
+}
+
+.habit-section {
+    background-color: #1e1e1e;
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.habit-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(187, 134, 252, 0.3);
+}
+
+.habit-title {
+    font-size: 2.2em;
+    color: #bb86fc;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 2px solid #bb86fc;
+    padding-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.habit-title-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    min-width: 300px;
+}
+
+.habit-title i {
+    font-size: 0.9em;
+    color: #03dac6;
+}
+
+.habit-number {
+    background: linear-gradient(135deg, #bb86fc 0%, #03dac6 100%);
+    color: #121212;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.video-timestamp {
+    background-color: rgba(3, 218, 198, 0.2);
+    color: #03dac6;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.5em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid #03dac6;
+    white-space: nowrap;
+}
+
+.video-timestamp:hover {
+    background-color: rgba(3, 218, 198, 0.4);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(3, 218, 198, 0.3);
+}
+
+.video-timestamp i {
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size: 1.6em;
+    color: #03dac6;
+    margin: 30px 0 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h3 i {
+    font-size: 0.8em;
+}
+
+p {
+    margin-bottom: 20px;
+    font-size: 1.05em;
+    text-align: justify;
+}
+
+.highlight-box {
+    background: linear-gradient(135deg, rgba(187, 134, 252, 0.1) 0%, rgba(3, 218, 198, 0.1) 100%);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 25px 0;
+    border-left: 4px solid #bb86fc;
+    box-shadow: inset 0 0 20px rgba(187, 134, 252, 0.1);
+}
+
+.highlight-box h4 {
+    color: #bb86fc;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.story-box {
+    background: linear-gradient(135deg, rgba(3, 218, 198, 0.1) 0%, rgba(187, 134, 252, 0.1) 100%);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 25px 0;
+    border-left: 4px solid #03dac6;
+    font-style: italic;
+    box-shadow: inset 0 0 20px rgba(3, 218, 198, 0.1);
+}
+
+.quote {
+    background-color: rgba(187, 134, 252, 0.05);
+    padding: 30px;
+    border-radius: 10px;
+    margin: 25px 0;
+    border-left: 5px solid #03dac6;
+    font-size: 1.2em;
+    font-style: italic;
+    color: #bb86fc;
+    position: relative;
+}
+
+.quote::before {
+    content: '"';
+    font-size: 4em;
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    color: rgba(187, 134, 252, 0.3);
+    font-family: Georgia, serif;
+}
+
+.quote-author {
+    text-align: right;
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #03dac6;
+    font-style: normal;
+}
+
+.action-step {
+    background: linear-gradient(135deg, #2d1b4e 0%, #1e1e1e 100%);
+    padding: 30px;
+    border-radius: 15px;
+    margin: 30px 0;
+    border: 2px solid #03dac6;
+    box-shadow: 0 5px 20px rgba(3, 218, 198, 0.2);
+}
+
+.action-step h4 {
+    color: #03dac6;
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-step i {
+    font-size: 1.2em;
+}
+
+ul, ol {
+    margin: 20px 0 20px 30px;
+}
+
+li {
+    margin-bottom: 15px;
+    font-size: 1.05em;
+    line-height: 1.7;
+}
+
+.key-points {
+    background-color: rgba(3, 218, 198, 0.1);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 25px 0;
+}
+
+.key-points h4 {
+    color: #03dac6;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.key-points ul {
+    list-style: none;
+    margin-left: 0;
+}
+
+.key-points li::before {
+    content: "✓ ";
+    color: #03dac6;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.stats {
+    background: linear-gradient(135deg, rgba(187, 134, 252, 0.2) 0%, rgba(3, 218, 198, 0.2) 100%);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #bb86fc;
+}
+
+.conclusion {
+    background: linear-gradient(135deg, #2d1b4e 0%, #1e1e1e 100%);
+    padding: 50px;
+    border-radius: 20px;
+    margin-top: 50px;
+    border: 3px solid #bb86fc;
+    box-shadow: 0 10px 40px rgba(187, 134, 252, 0.3);
+    text-align: center;
+}
+
+.conclusion h2 {
+    color: #bb86fc;
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+
+.conclusion p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.final-message {
+    background: linear-gradient(135deg, #bb86fc 0%, #03dac6 100%);
+    color: #121212;
+    padding: 30px;
+    border-radius: 15px;
+    margin-top: 30px;
+    font-size: 1.3em;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(187, 134, 252, 0.5);
+}
+
+strong {
+    color: #bb86fc;
+    font-weight: 600;
+}
+
+.scale-question {
+    background-color: rgba(187, 134, 252, 0.1);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 25px 0;
+    border: 2px dashed #bb86fc;
+}
+
+.scale-question h4 {
+    color: #bb86fc;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.column-box {
+    background-color: rgba(187, 134, 252, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #bb86fc;
+}
+
+.column-box.energize {
+    border-color: #03dac6;
+    background-color: rgba(3, 218, 198, 0.1);
+}
+
+.column-box.drain {
+    border-color: #cf6679;
+    background-color: rgba(207, 102, 121, 0.1);
+}
+
+.column-box h5 {
+    color: #bb86fc;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.column-box.energize h5 {
+    color: #03dac6;
+}
+
+.column-box.drain h5 {
+    color: #cf6679;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .habit-title {
+        font-size: 1.6em;
+    }
+
+    .habit-title-content {
+        min-width: 100%;
+    }
+
+    .video-timestamp {
+        font-size: 0.6em;
+        padding: 6px 12px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .habit-section {
+        padding: 25px;
+    }
+
+    header {
+        padding: 40px 15px;
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+}
+
+        details { margin-bottom: 25px; }
+        summary {
+            font-size: 1.6em;
+            color: #bb86fc;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        summary:hover { background: #2d1b4e; }
+        details[open] summary { border-bottom: 2px solid #03dac6; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <header>
+        <h1><i class="fas fa-microscope"></i> Microbioma Intestinal</h1>
+        <p class="subtitle">Transplante Fecal, Inflamação Crônica e a Chave para uma Vida Mais Longa e Saudável</p>
+        <div class="tags">
+            <span class="tag"><i class="fas fa-poop"></i> 60% das fezes são micróbios</span>
+            <span class="tag"><i class="fas fa-shield-alt"></i> Intestino permeável</span>
+            <span class="tag"><i class="fas fa-fire"></i> Inflamação crônica</span>
+            <span class="tag"><i class="fas fa-seedling"></i> Fibra + Polifenóis + Fermentados</span>
+        </div>
+    </header>
+
+    <div class="intro">
+        <p>O Dr. Will Bulsiewicz, gastroenterologista de renome mundial, explica como o microbioma intestinal (38 trilhões de micróbios) controla a inflamação, o sistema imunológico e praticamente todas as doenças crônicas modernas. Ele compartilha casos reais, o mecanismo do transplante fecal, os 4 nutrientes que mais faltam na dieta atual e uma rotina diária de 24 horas que pode transformar sua saúde.</p>
+    </div>
+
+<img src="/downloads/5Tr7AhkOEj4_0001.png" alt="Imagem 0001" style="display: block; margin: 10px auto; max-width: 100%; height: auto;" />
+
+<audio controls style="display: block; margin: 10px auto; width: 100%;"><source src="/downloads/5Tr7AhkOEj4_0002.mp3" type="audio/x-m4a"></audio>
+
+    <!-- SEÇÃO 1 -->
+    <details open>
+        <summary><i class="fas fa-syringe"></i> O que é Transplante Fecal e Por Que Ele Salva Vidas</summary>
+        <div class="habit-section">
+            <p>O transplante fecal consiste em pegar fezes de uma pessoa saudável e transferi-las para uma pessoa doente — geralmente durante uma colonoscopia — para restaurar o equilíbrio do microbioma.</p>
+            <div class="story-box">
+                <strong>Caso real — Michelle</strong><br>
+                Após tomar clindamicina (antibiótico para acne), Michelle desenvolveu infecção grave por <strong>C. difficile</strong>. O cólon estava tão inflamado que a única opção era remover o órgão ou tentar transplante fecal. No dia seguinte ao procedimento, a infecção foi controlada. Dois dias depois, ela recebeu alta.
+            </div>
+            <p class="highlight-box">“Introduzimos bactérias boas, não eliminamos as ruins. É como transplantar toda uma floresta amazônica para uma área degradada.”</p>
+        </div>
+    </details>
+
+    <!-- SEÇÃO 2 -->
+    <details open>
+        <summary><i class="fas fa-bacteria"></i> O Microbioma: 60% do Peso das Suas Fezes São Micróbios</summary>
+        <div class="habit-section">
+            <div class="stats">60% do peso das fezes = microrganismos (bactérias, arqueias, fungos)</div>
+            <p>O microbioma é a primeira linha de defesa. Ele alimenta e repara a barreira intestinal a cada 3–5 dias. Quando ele está destruído (antibióticos, dieta pobre, etc.), a barreira se rompe → intestino permeável → ativação constante do sistema imunológico → inflamação crônica.</p>
+        </div>
+    </details>
+
+    <!-- SEÇÃO 3 -->
+    <details>
+        <summary><i class="fas fa-fire"></i> Inflamação Crônica de Baixo Grau — A História da Saúde Moderna</summary>
+        <div class="habit-section">
+            <p>Explicação para uma criança de 10 anos:<br>
+            Seu sistema imunológico é um exército que protege você. Quando ele fica ligado 24 h por dia sem motivo real, começa a atacar seus próprios tecidos. Isso é inflamação crônica — silenciosa, mas devastadora.</p>
+            <div class="key-points">
+                <h4>Sintomas sutis que quase ninguém associa à inflamação</h4>
+                <ul>
+                    <li>Fadiga constante</li>
+                    <li>Dificuldade de concentração</li>
+                    <li>Insônia</li>
+                    <li>Dores articulares matinais</li>
+                    <li>Problemas de pele</li>
+                    <li>Inchaço abdominal</li>
+                </ul>
+            </div>
+            <p>Você pode ser magro, definido e ainda ter inflamação (ex.: fisiculturistas com problemas intestinais graves).</p>
+        </div>
+    </details>
+
+    <!-- SEÇÃO 4 -->
+    <details>
+        <summary><i class="fas fa-shield-alt"></i> Intestino Permeável → Ativação Imunológica</summary>
+        <div class="habit-section">
+            <p>Quando a barreira intestinal se rompe, substâncias que não deveriam entrar ativam o sistema imunológico → citocinas → cascata inflamatória em todo o corpo.</p>
+            <div class="highlight-box">
+                <strong>Consequências comprovadas:</strong><br>
+                Hepatite, neuroinflamação, depressão, Alzheimer, Parkinson, doenças autoimunes, câncer e muito mais.
+            </div>
+        </div>
+
+<img src="/downloads/5Tr7AhkOEj4_0004.png" alt="Imagem 0004" style="display: block; margin: 10px auto; max-width: 100%; height: auto;" />
+
+    </details>
+
+
+    <!-- SEÇÃO 5 -->
+    <details>
+        <summary><i class="fas fa-gas-pump"></i> Inchaço, Constipação e Gases — Causas e Soluções</summary>
+        <div class="habit-section">
+            <p><strong>Causa nº 1:</strong> Constipação (mesmo que você vá ao banheiro todos os dias).</p>
+            <div class="key-points">
+                <li>Evacuação parcial = prisão de ventre funcional</li>
+                <li>Gases viajam com as fezes → quando elas ficam presas, os micróbios fermentam tudo e produzem gás em excesso</li>
+                <li>Laticínios, glúten (fructanos + glifosato nos EUA), excesso de FODMAPs</li>
+            </div>
+            <p>O glifosato (Roundup) usado no trigo americano destrói bactérias benéficas. Na Itália e em pães de fermentação natural o problema é bem menor.</p>
+        </div>
+    </details>
+
+    <!-- SEÇÃO 6 -->
+    <details>
+        <summary><i class="fas fa-baby"></i> Os Primeiros 3 Anos de Vida Determinam o Microbioma Adulto</summary>
+        <div class="habit-section">
+            <p>Aos 3 anos você já tem o microbioma de tamanho adulto.</p>
+            <div class="highlight-box">
+                Fatores que aumentam risco de alergias, autoimunidade e doenças metabólicas:
+                <ul>
+                    <li>Antibióticos</li>
+                    <li>Parto cesárea</li>
+                    <li>Leite em fórmula (falta de >200 HMOs prebióticos do leite materno)</li>
+                </ul>
+            </div>
+        </div>
+    </details>
+
+    <!-- SEÇÃO 7 -->
+    <details>
+        <summary><i class="fas fa-carrot"></i> Os 4 Elementos que Mais Faltam na Dieta Moderna</summary>
+        <div class="habit-section">
+            <div class="key-points">
+                <li><strong>Fibra</strong> → alimenta bactérias boas → produz ácidos graxos de cadeia curta (butirato, acetato, propionato) — o anti-inflamatório mais poderoso que existe</li>
+                <li><strong>Polifenóis</strong> (cores dos vegetais) → 95% precisam do microbioma para serem ativados</li>
+                <li><strong>Gorduras saudáveis</strong> (azeite EV, abacate, nozes, ômega-3)</li>
+                <li><strong>Alimentos fermentados</strong> → aumentam diversidade microbiana em apenas 8 semanas (estudo Stanford)</li>
+            </div>
+        </div>
+    </details>
+
+    <!-- SEÇÃO 8 -->
+    <details>
+        <summary><i class="fas fa-sun"></i> Rotina de 24 Horas para Otimizar o Microbioma (Ritmo Circadiano)</summary>
+        <div class="habit-section">
+            <h3>7h00 – Acordar</h3>
+            <ul>
+                <li>5 min: Hidratação + fibra prebiótica</li>
+                <li>20 min: Luz solar + exercício leve ao ar livre (aumenta cortisol matinal em até 50%)</li>
+                <li>10 min: Momento de tranquilidade (respiração, meditação, diário)</li>
+            </ul>
+            <h3>Café da manhã (7h45)</h3>
+            <p>Rico em fibra + proteína moderada + pouco açúcar. Suplementos matinais: Vit D, ômega-3, cúrcuma.</p>
+            <h3>Almoço + caminhada pós-refeição (12h–13h)</h3>
+            <p>Socializar (combate solidão = risco equivalente ao cigarro) + 10–15 min de caminhada.</h3>
+            <h3>Tarde (15h–18h)</h3>
+            <p>Treino mais intenso + matcha (polifenóis potentes).</p>
+            <h3>Jantar cedo (17h)</h3>
+            <p>Intervalo de ~4 h entre refeições permite o complexo motor migratório.</p>
+            <h3>Noite</h3>
+            <p>Diminuir luzes às 19h–20h, óculos bloqueador de luz azul, suplementos noturnos (magnésio, zinco), ritual de relaxamento, dormir no mesmo horário.</p>
+        </div>
+
+<img src="/downloads/5Tr7AhkOEj4_0005.png" alt="Imagem 0005" style="display: block; margin: 10px auto; max-width: 100%; height: auto;" />
+
+
+    </details>
+
+    <!-- SEÇÃO 9 -->
+    <details>
+        <summary><i class="fas fa-dna"></i> Conexões com Câncer, Parkinson e Outras Doenças</summary>
+        <div class="habit-section">
+            <p>O microbioma influencia resposta à imunoterapia no melanoma (dobrou taxa de resposta com transplante fecal). Na doença de Parkinson, a constipação precede os sintomas cerebrais em anos; transplante fecal melhorou mobilidade por pelo menos 1 ano.</p>
+        </div>
+    </details>
+
+    <!-- SEÇÃO 10 -->
+    <details>
+        <summary><i class="fas fa-chart-bar"></i> Escala de Bristol — Qual o Formato do Seu Cocô?</summary>
+        <div class="habit-section">
+            <p><strong>Tipo 4</strong> = ideal (macio, formato de salsicha, fácil de eliminar).</p>
+            <p>Tipos 1–2 = constipação; 6–7 = diarreia.</p>
+            <div class="stats">Cerca de 40% da população tem fezes fora do padrão saudável.</div>
+        </div>
+    </details>
+
+    <!-- SEÇÃO 11 -->
+    <details>
+        <summary><i class="fas fa-user"></i> História Pessoal do Dr. Will Bulsiewicz</summary>
+        <div class="habit-section">
+            <div class="story-box">
+                Há 10 anos ele era obeso, comia fast-food, estava emocionalmente destruído por um trauma familiar (divórcio dos pais aos 7 anos, 10 anos sem falar com o pai). Após mudar alimentação, estilo de vida, perdoar o pai e tornar-se pai, transformou completamente a saúde e a vida.
+            </div>
+        </div>
+    </details>
+
+    <div class="conclusion">
+        <h2>Conclusão</h2>
+        <p>O intestino é o centro da saúde. Restaurando o microbioma, reparando a barreira intestinal e vivendo em ritmo circadiano, você reduz inflamação crônica, previne doenças e vive mais e melhor.</p>
+        <div class="final-message">
+            “Se as pessoas realmente seguirem as ferramentas deste livro, estou convencido de que transformará suas vidas.” — Dr. Will Bulsiewicz
+        </div>
+    </div>
+
+<video controls style="display: block; margin: 10px auto; max-width: 100%;"><source src="/downloads/5Tr7AhkOEj4_0003.mp4" type="video/mp4"></video>
+
+
+<!-- ==================== VERSÃO DETALHISTA – PRESERVAÇÃO QUASE LITERAL ==================== -->
+
+<details open>
+    <summary><i class="fas fa-clock"></i> 38:06 – Quanto tempo leva para consertar o intestino?</summary>
+    <div class="habit-section">
+        <p>“Sim, com certeza. E a cada 3 a 5 dias você constrói uma nova barreira intestinal. Assim, identifiquei quatro coisas que faltam em nossa dieta, bem como uma rotina diária que pode otimizar nosso microbioma. E quando você fizer isso, você prosperará, viverá mais e terá menos doenças.”</p>
+        <p>“A barreira intestinal se renova completamente a cada 3 a 5 dias. Você tem a oportunidade de criar uma barreira intestinal completamente nova a cada 3 a 5 dias.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-pills"></i> 42:29 – Antibióticos dobram o risco de doença inflamatória intestinal</summary>
+    <div class="habit-section">
+        <p>“Cada curso de antibiótico aumenta o risco de Crohn e colite ulcerativa. O transplante fecal pode reverter casos graves.”</p>
+        <p>“Antibióticos que destroem o intestino… o transplante fecal revigora rapidamente o intestino e restaura sua arquitetura e ecossistema.”</p>
+        <p>“Se alguém recebeu antibióticos antes do inibidor de checkpoint imunológico, não apresentou bons resultados… então eles fizeram o oposto: restauraram o microbioma com transplante fecal e dobraram a taxa de resposta.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-carrot"></i> 51:41 – Fibra: o nutriente mais subestimado do planeta</summary>
+    <div class="habit-section">
+        <p>“95% dos americanos têm deficiência de fibra. Fibra alimenta os micróbios → ácidos graxos de cadeia curta → barreira intestinal forte → inflamação baixa.”</p>
+        <p>“Se eu pegasse sua bebida e adicionasse um pouco de fibra solúvel, que é prebiótica… você terá uma evacuação maior e mais saudável amanhã. Porque eu alimentei seus micróbios e eles cresceram e se multiplicaram.”</p>
+        <p>“Melhores fontes: feijão, lentilha, aveia, frutas com casca, vegetais crucíferos, sementes, nozes.”</p>
+        <p>“60% do peso das suas fezes é composto por micróbios. Quando você come fibra, os micróbios se multiplicam e você tem uma evacuação maior.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-wine-glass"></i> 59:48 – O que o álcool realmente faz com o seu intestino</summary>
+    <div class="habit-section">
+        <p>“Aumenta permeabilidade intestinal em poucas horas. É um dos maiores gatilhos de inflamação crônica.”</p>
+        <p>“O álcool danifica a barreira intestinal, permite que substâncias indesejadas atravessem, o sistema imunológico entra em ação e isso causa inflamação.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-seedling"></i> 1:07:11 – Benefícios da cúrcuma + rotina perfeita do Dr. Will</summary>
+    <div class="habit-section">
+        <p>“Cúrcuma (com pimenta preta) é anti-inflamatória potente.”</p>
+        <p>“A rotina ideal dele inclui:</p>
+        <ul>
+            <li>Café da manhã rico em fibra + fermentados</li>
+            <li>Almoço e jantar com leguminosas + vegetais coloridos</li>
+            <li>Exercício em jejum ou após café da manhã leve</li>
+            <li>Jantar cedo (janela de alimentação 10–12 h)”</li>
+        </ul>
+        <p>“Quando você proporciona um descanso para o intestino, isso é benéfico para a saúde intestinal… e nos ajuda a sermos mais consistentes com os horários das refeições.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-child"></i> 1:19:27 – Saúde intestinal das crianças</summary>
+    <div class="habit-section">
+        <p>“Aos 3 anos de idade, você já atingiu basicamente o tamanho adulto em termos de microbioma. No entanto, o uso de antibióticos, a alimentação com mamadeira e o parto por cesariana estão associados a impactos no microbioma, como um risco aumentado de doenças alérgicas, autoimunes e metabólicas.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-brain"></i> 1:44:05 – Trauma e intestino: a conexão que ninguém fala</summary>
+    <div class="habit-section">
+        <p>“Trauma mantém o sistema nervoso simpático ligado → cortisol alto → barreira intestinal fraca → inflamação. Curar o trauma é muitas vezes o passo mais importante para curar o intestino.”</p>
+        <p>“O corpo guarda as marcas. É possível sofrer um trauma antes dos dois anos de idade. Não tem como você se lembrar disso. No entanto, isso se manifestará mais tarde na idade adulta.”</p>
+        <p>“Vivemos nossas vidas em estado de alerta máximo… o intestino é sacrificado quando ativamos nosso sistema nervoso simpático.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-toilet"></i> 1:50:29 – Teste de fezes + Escala de Bristol</summary>
+    <div class="habit-section">
+        <p>“Tipo 4 = ideal (salsicha macia). Tipos 1–2 = constipação. Tipos 6–7 = diarreia. 60 % do peso das fezes são bactérias.”</p>
+        <p>“A escala de Bristol classifica as fezes em sete tipos diferentes… Bristol 4 representa uma evacuação normal: macio, porém com formato de salsicha.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-magnet"></i> 1:53:21 – Magnésio para constipação e sono</summary>
+    <div class="habit-section">
+        <p>“Óxido / citrato / sulfato de magnésio à noite = evacuação perfeita no dia seguinte + sono melhor.”</p>
+        <p>“Se o seu objetivo é dormir ou relaxar, o glicinato de magnésio é fenomenal. Mas se você estiver com prisão de ventre, isso não vai adiantar nada. Para prisão de ventre, o óxido de magnésio é o que eu normalmente usaria.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-star"></i> 1:54:51 – As 4 coisas que realmente faltam na dieta moderna</summary>
+    <div class="habit-section">
+        <p>“Identifiquei quatro coisas. E esses quatro elementos estão presentes em todos os padrões alimentares saudáveis:</p>
+        <ol>
+            <li>Fibra (95 % das pessoas têm deficiência)</li>
+            <li>Polifenóis (frutas e vegetais coloridos)</li>
+            <li>Gordura saudável (azeite extra virgem, abacate, nozes, ômega-3)</li>
+            <li>Alimentos fermentados (iogurte, kefir, kimchi, chucrute, kombucha)”</li>
+        </ol>
+        <p>“O consumo médio de alimentos fermentados nos Estados Unidos é zero… Em apenas oito semanas, ao adicionar alimentos fermentados à dieta, as pessoas conseguiram aumentar a diversidade da sua microbiota intestinal e reduzir a inflamação.”</p>
+    </div>
+</details>
+
+<details open>
+    <summary><i class="fas fa-heart"></i> 2:04:49 – Mensagem ao pai + maior arrependimento</summary>
+    <div class="habit-section">
+        <p>“Eu peguei o telefone e liguei para ele depois de 10 anos sem falar… O nascimento da minha filha me ajudou a compreender o amor que meu próprio pai sentia por mim.”</p>
+        <p>“Eu odeio o fato de ter demorado tanto para perceber que ele era um ótimo pai… Ele nos levava para acampar, para viajar, estava sempre presente. Agora, tendo filhos, entendo o quanto ele se esforçava.”</p>
+        <p>“Eu sou quem sou por causa dele.”</p>
+    </div>
+</details>
+
+
+
+</div>
+
+
+  <script>
+    // Registro do Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('SW registrado!', reg))
+          .catch(err => console.log('SW falhou:', err));
+      });
+    }
+  </script>
+
+</body>
+</html>
